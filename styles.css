@@ -5,8 +5,8 @@
   z-index: 9999;
   height: 200px;
   width: 400px;
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 10px;
+  color: #fbfaff !important;
+  background-color: #171520 !important;
+  padding: 14px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

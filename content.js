@@ -12,6 +12,25 @@ async function loadMainApp() {
 
 async function createMainApp() {
   const mainApp = await loadMainApp()
+
+  const input = mainApp.querySelector("#myInput")
+  const inputTextDisplay = mainApp.querySelector("#inputTextDisplay")
+
+  // Load the saved value from storage and display it
+  chrome.storage.sync.get("inputValue", (data) => {
+    input.value = data.inputValue || ""
+    inputTextDisplay.textContent = data.inputValue || ""
+  })
+
+  // Save the input value and update the display when the input changes
+  input.addEventListener("input", (event) => {
+    const inputValue = event.target.value
+    chrome.storage.sync.set({ inputValue: inputValue }, () => {
+      console.log("Input value saved to storage:", inputValue)
+    })
+    inputTextDisplay.textContent = inputValue
+  })
+
   document.body.appendChild(mainApp)
 }
 
