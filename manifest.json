@@ -9,10 +9,17 @@
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "js": ["*/*.js"],
+      "js": ["content.js"],
+      "module": true,
       "css": ["styles.css"],
       "run_at": "document_end"
     }
   ],
-  "permissions": ["activeTab", "storage"]
+  "permissions": ["activeTab", "storage"],
+  "web_accessible_resources": [
+    {
+      "resources": ["main.html", "main.js"],
+      "matches": ["*://*/*"]
+    }
+  ]
 }

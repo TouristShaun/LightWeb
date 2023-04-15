@@ -1,1 +1,0 @@
-console.log('Light Chrome Extension Test!');
