@@ -4,12 +4,12 @@
   "version": "0.0.1",
   "manifest_version": 3,
   "action": {
-    "default_popup": "hello.html"
+    "default_popup": "settings.html"
   },
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "js": ["content.js"],
+      "js": ["*/*.js"],
       "css": ["styles.css"],
       "run_at": "document_end"
     }
