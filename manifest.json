@@ -1,0 +1,9 @@
+{
+    "name": "Light",
+    "description": "Test Extension for Light",
+    "version": "1.0",
+    "manifest_version": 3,
+    "action": {
+      "default_popup": "hello.html"
+    }
+  }
