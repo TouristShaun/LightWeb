@@ -1,9 +1,18 @@
 {
-    "name": "Light",
-    "description": "Test Extension for Light",
-    "version": "1.0",
-    "manifest_version": 3,
-    "action": {
-      "default_popup": "hello.html"
+  "name": "Light",
+  "description": "Test Extension for Light",
+  "version": "0.0.1",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "hello.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
     }
-  }
+  ],
+  "permissions": ["activeTab"]
+}
