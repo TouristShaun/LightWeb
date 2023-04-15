@@ -4,7 +4,7 @@ async function fetchHtmlAsText(url) {
 }
 
 async function loadMainApp() {
-  const mainAppHtml = await fetchHtmlAsText(chrome.runtime.getURL("main.html"))
+  const mainAppHtml = await fetchHtmlAsText(chrome.runtime.getURL("app.html"))
   const mainApp = document.createElement("div")
   mainApp.innerHTML = mainAppHtml
   return mainApp

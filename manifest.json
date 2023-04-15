@@ -18,7 +18,7 @@
   "permissions": ["activeTab", "storage"],
   "web_accessible_resources": [
     {
-      "resources": ["main.html", "main.js"],
+      "resources": ["app.html"],
       "matches": ["*://*/*"]
     }
   ]
