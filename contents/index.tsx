@@ -51,6 +51,7 @@ const PromptBar = () => {
     }
   }, [])
 
+  // Close prompt bar when clicked outside
   useEffect(() => {
     const onHandleClickOutside = (event: MouseEvent) => {
       if (
@@ -81,6 +82,7 @@ const PromptBar = () => {
     }
   }, [promptText])
 
+  // Load local prompt text to state
   useEffect(() => {
     if (localPromptText) {
       setPromptText(localPromptText)
