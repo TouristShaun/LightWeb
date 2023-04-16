@@ -1,5 +1,11 @@
 // /** @type {import('tailwindcss').Config} */
+import { colors } from "../colors.tailwind"
+
 module.exports = {
-  content: ["./contents/*.{ts,tsx}"], // your content-script files
-  plugins: []
+  content: ["./content/*.{ts,tsx}"], // your popup files
+  theme: {
+    extend: {
+      colors
+    }
+  }
 }
