@@ -19,11 +19,13 @@ export const getStyle = () => {
   return style
 }
 
-const Promptbar = () => {
-  const [activePrompt, setActivePrompt] = useStorage(
-    "light-active-prompt-text",
+const PromptBar = () => {
+  const [localPromptText, setLocalPromptText] = useStorage(
+    "light-prompt-bar-text",
     (v) => (v === undefined ? "" : v)
   )
+
+  const [promptText, setPromptText] = useState<string>("")
   const [show, setShow] = useState(true)
 
   const promptBarRef = useRef<HTMLInputElement>(null)
@@ -67,8 +69,15 @@ const Promptbar = () => {
     }
   }, [show])
 
+  // Save prompt text to local
+  useEffect(() => {
+    if (promptText) {
+      onChangePromptBar(promptText)
+    }
+  }, [promptText])
+
   const onChangePromptBar = useDebounce((value: string) => {
-    setActivePrompt(value)
+    setLocalPromptText(value)
   }, 1000)
 
   return show ? (
@@ -78,10 +87,10 @@ const Promptbar = () => {
       <input
         ref={promptBarRef}
         type="text"
-        value={activePrompt}
+        value={promptText ?? localPromptText}
         placeholder="How can i help you?"
         className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
-        onChange={(e) => onChangePromptBar(e.target.value)}
+        onChange={(e) => setPromptText(e.target.value)}
       />
       <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13]">
         <div className="h-fit w-fit opacity-30">
@@ -92,4 +101,4 @@ const Promptbar = () => {
   ) : null
 }
 
-export default Promptbar
+export default PromptBar
