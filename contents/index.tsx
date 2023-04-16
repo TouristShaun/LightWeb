@@ -16,8 +16,11 @@ export const getStyle = () => {
   return style
 }
 
-const PlasmoContent = () => {
-  const [showSidebarApp] = useStorage("light-show-sidebar-app")
+const Promptbar = () => {
+  const [activePrompt, setActivePrompt] = useStorage(
+    "light-active-prompt-text",
+    (v) => (v === undefined ? "" : v)
+  )
   const [show, setShow] = useState(true)
 
   const promptBarRef = useRef<HTMLInputElement>(null)
@@ -49,8 +52,10 @@ const PlasmoContent = () => {
       <input
         ref={promptBarRef}
         type="text"
+        value={activePrompt}
         placeholder="How can i help you?"
         className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
+        onChange={(e) => setActivePrompt(e.target.value)}
       />
       <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13]">
         <p>Light</p>
@@ -59,4 +64,4 @@ const PlasmoContent = () => {
   ) : null
 }
 
-export default PlasmoContent
+export default Promptbar
