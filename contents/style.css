@@ -28,6 +28,9 @@
 
 #plasmo-overlay-0 {
   @apply inset-0;
-  margin-top: 30vh;
   margin-left: calc(50vh - 500px);
+}
+
+#light-prompt-bar {
+  margin-top: 30vh;
 }

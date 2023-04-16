@@ -30,6 +30,11 @@ const PromptBar = () => {
     (v) => (v === undefined ? false : v)
   )
 
+  const [sideBarVisibility, setSideBarVisibility] = useStorage(
+    "light-side-bar-visibility",
+    (v) => (v === undefined ? false : v)
+  )
+
   const [promptText, setPromptText] = useState<string>("")
   const [showPromptBar, setShowPromptBar] = useState(false)
 
@@ -41,6 +46,9 @@ const PromptBar = () => {
     const onHandleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "l" && e.metaKey && e.ctrlKey) {
         setShowPromptBar((prev) => !prev)
+        if (sideBarVisibility) {
+          setSideBarVisibility(false)
+        }
       }
     }
 
@@ -59,6 +67,7 @@ const PromptBar = () => {
         !promptBarRef.current.contains(event.target as Node)
       ) {
         setShowPromptBar((prev) => !prev)
+        event.stopPropagation()
       }
     }
 
@@ -101,18 +110,33 @@ const PromptBar = () => {
     setLocalPromptText(value)
   }, 1000)
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (promptText) {
+      setLocalPromptText(promptText)
+      if (!sideBarVisibility) {
+        setSideBarVisibility(true)
+        setShowPromptBar(false)
+      }
+    }
+    setPromptText("")
+  }
+
   return showPromptBar ? (
     <section
+      id="light-prompt-bar"
       ref={promptBarRef}
       className="w-[500px] h-fit fixed left-0 right-0 bg-black/70 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
-      <input
-        ref={promptBarInputRef}
-        type="text"
-        value={promptText}
-        placeholder="How can i help you?"
-        className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
-        onChange={(e) => setPromptText(e.target.value)}
-      />
+      <form onSubmit={onSubmit}>
+        <input
+          ref={promptBarInputRef}
+          type="text"
+          value={promptText}
+          placeholder="How may I help you?"
+          className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
+          onChange={(e) => setPromptText(e.target.value)}
+        />
+      </form>
       <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13] bg-white/5 rounded-b-lg">
         <div className="h-fit w-fit opacity-30">
           <Logo variant="dark" width={30} />
