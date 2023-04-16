@@ -76,6 +76,12 @@ const PromptBar = () => {
     }
   }, [promptText])
 
+  useEffect(() => {
+    if (localPromptText) {
+      setPromptText(localPromptText)
+    }
+  }, [localPromptText])
+
   const onChangePromptBar = useDebounce((value: string) => {
     setLocalPromptText(value)
   }, 1000)
@@ -87,7 +93,7 @@ const PromptBar = () => {
       <input
         ref={promptBarInputRef}
         type="text"
-        value={promptText ?? localPromptText}
+        value={promptText}
         placeholder="How can i help you?"
         className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
         onChange={(e) => setPromptText(e.target.value)}
