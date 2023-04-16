@@ -28,21 +28,21 @@ const PromptBar = () => {
   const [promptText, setPromptText] = useState<string>("")
   const [show, setShow] = useState(true)
 
-  const promptBarRef = useRef<HTMLInputElement>(null)
+  const promptBarInputRef = useRef<HTMLInputElement>(null)
   const promptBarRef = useRef<HTMLDivElement>(null)
 
   // Trigger prompt bar with keyboard shortcut (ctrl + cmd + k)
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "k" && e.metaKey && e.ctrlKey) {
+    const onHandleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "l" && e.metaKey && e.ctrlKey) {
         setShow((prev) => !prev)
       }
     }
 
-    document.addEventListener("keydown", handleKeyDown)
+    document.addEventListener("keydown", onHandleKeyDown)
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown)
+      document.removeEventListener("keydown", onHandleKeyDown)
     }
   }, [])
 
@@ -65,7 +65,7 @@ const PromptBar = () => {
   // Focus prompt bar when it is shown
   useEffect(() => {
     if (show) {
-      promptBarRef.current?.focus()
+      promptBarInputRef.current?.focus()
     }
   }, [show])
 
@@ -85,7 +85,7 @@ const PromptBar = () => {
       ref={promptBarRef}
       className="w-[500px] h-fit fixed left-0 right-0 bg-black/70 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
       <input
-        ref={promptBarRef}
+        ref={promptBarInputRef}
         type="text"
         value={promptText ?? localPromptText}
         placeholder="How can i help you?"
