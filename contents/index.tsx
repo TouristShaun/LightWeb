@@ -92,7 +92,7 @@ const PromptBar = () => {
         className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
         onChange={(e) => setPromptText(e.target.value)}
       />
-      <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13]">
+      <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13] bg-white/5 rounded-b-lg">
         <div className="h-fit w-fit opacity-30">
           <Logo variant="dark" width={30} />
         </div>
