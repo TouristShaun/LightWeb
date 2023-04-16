@@ -77,9 +77,7 @@ const PromptBar = () => {
 
   // Save prompt text to local
   useEffect(() => {
-    if (promptText) {
-      onChangePromptBar(promptText)
-    }
+    onChangePromptBar(promptText)
   }, [promptText])
 
   // Load local prompt text to state
