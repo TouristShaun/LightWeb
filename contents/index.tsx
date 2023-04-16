@@ -1,6 +1,7 @@
 import cssText from "data-text:~/contents/style.css"
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef, useState } from "react"
+import { useDebounce } from "tiny-use-debounce"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
@@ -49,6 +50,10 @@ const Promptbar = () => {
     }
   }, [show])
 
+  const onChangePromptBar = useDebounce((value: string) => {
+    setActivePrompt(value)
+  }, 1000)
+
   return show ? (
     <section className="w-[500px] h-fit bg-black/80 backdrop-blur-md rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
       <input
@@ -57,7 +62,7 @@ const Promptbar = () => {
         value={activePrompt}
         placeholder="How can i help you?"
         className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
-        onChange={(e) => setActivePrompt(e.target.value)}
+        onChange={(e) => onChangePromptBar(e.target.value)}
       />
       <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13]">
         <div className="h-fit w-fit opacity-30">
