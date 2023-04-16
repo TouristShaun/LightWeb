@@ -6,6 +6,8 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import "./style.css"
 
+import Logo from "~components/Logo"
+
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"]
 }
@@ -58,7 +60,9 @@ const Promptbar = () => {
         onChange={(e) => setActivePrompt(e.target.value)}
       />
       <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13]">
-        <p>Light</p>
+        <div className="h-fit w-fit opacity-30">
+          <Logo variant="dark" width={30} />
+        </div>
       </section>
     </section>
   ) : null
