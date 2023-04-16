@@ -25,8 +25,13 @@ const PromptBar = () => {
     (v) => (v === undefined ? "" : v)
   )
 
+  const [promptBarVisibility, setPromptBarVisibility] = useStorage(
+    "light-prompt-bar-visibility",
+    (v) => (v === undefined ? false : v)
+  )
+
   const [promptText, setPromptText] = useState<string>("")
-  const [show, setShow] = useState(true)
+  const [showPromptBar, setShowPromptBar] = useState(false)
 
   const promptBarInputRef = useRef<HTMLInputElement>(null)
   const promptBarRef = useRef<HTMLDivElement>(null)
@@ -35,7 +40,7 @@ const PromptBar = () => {
   useEffect(() => {
     const onHandleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "l" && e.metaKey && e.ctrlKey) {
-        setShow((prev) => !prev)
+        setShowPromptBar((prev) => !prev)
       }
     }
 
@@ -52,7 +57,7 @@ const PromptBar = () => {
         promptBarRef.current &&
         !promptBarRef.current.contains(event.target as Node)
       ) {
-        setShow((prev) => !prev)
+        setShowPromptBar((prev) => !prev)
       }
     }
 
@@ -64,10 +69,10 @@ const PromptBar = () => {
 
   // Focus prompt bar when it is shown
   useEffect(() => {
-    if (show) {
+    if (showPromptBar) {
       promptBarInputRef.current?.focus()
     }
-  }, [show])
+  }, [showPromptBar])
 
   // Save prompt text to local
   useEffect(() => {
@@ -82,11 +87,21 @@ const PromptBar = () => {
     }
   }, [localPromptText])
 
+  // Save prompt bar visibility state to local
+  useEffect(() => {
+    setPromptBarVisibility(showPromptBar)
+  }, [showPromptBar])
+
+  // Load local prompt bar visibility to state
+  useEffect(() => {
+    setShowPromptBar(promptBarVisibility)
+  }, [promptBarVisibility])
+
   const onChangePromptBar = useDebounce((value: string) => {
     setLocalPromptText(value)
   }, 1000)
 
-  return show ? (
+  return showPromptBar ? (
     <section
       ref={promptBarRef}
       className="w-[500px] h-fit fixed left-0 right-0 bg-black/70 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
