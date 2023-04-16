@@ -27,6 +27,7 @@ const Promptbar = () => {
   const [show, setShow] = useState(true)
 
   const promptBarRef = useRef<HTMLInputElement>(null)
+  const promptBarRef = useRef<HTMLDivElement>(null)
 
   // Trigger prompt bar with keyboard shortcut (ctrl + cmd + k)
   useEffect(() => {
@@ -43,6 +44,22 @@ const Promptbar = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const onHandleClickOutside = (event: MouseEvent) => {
+      if (
+        promptBarRef.current &&
+        !promptBarRef.current.contains(event.target as Node)
+      ) {
+        setShow((prev) => !prev)
+      }
+    }
+
+    document.addEventListener("mousedown", onHandleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", onHandleClickOutside)
+    }
+  }, [promptBarRef])
+
   // Focus prompt bar when it is shown
   useEffect(() => {
     if (show) {
@@ -55,7 +72,9 @@ const Promptbar = () => {
   }, 1000)
 
   return show ? (
-    <section className="w-[500px] h-fit bg-black/80 backdrop-blur-md rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
+    <section
+      ref={promptBarRef}
+      className="w-[500px] h-fit fixed left-0 right-0 bg-black/70 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
       <input
         ref={promptBarRef}
         type="text"
