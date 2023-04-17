@@ -46,10 +46,13 @@ const PromptBar = () => {
   useEffect(() => {
     const onHandleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === "l") {
-        setShowPromptBar((prev) => !prev)
+        setShowPromptBar(true)
         if (sideBarVisibility) {
           setSideBarVisibility(false)
         }
+      }
+      if (e.key === "Escape") {
+        setShowPromptBar(false)
       }
     }
 
@@ -58,7 +61,7 @@ const PromptBar = () => {
     return () => {
       document.removeEventListener("keydown", onHandleKeyDown)
     }
-  }, [])
+  }, [showPromptBar])
 
   // Close prompt bar when clicked outside
   useEffect(() => {
@@ -127,9 +130,9 @@ const PromptBar = () => {
     <AnimatePresence>
       {showPromptBar ? (
         <motion.section
-          initial={{ opacity: 0, y: 100, x: 0 }}
+          initial={{ opacity: 0, y: 30, x: 0 }}
           animate={{ opacity: 1, y: 0, x: 0 }}
-          exit={{ opacity: 0, y: 100, x: 0 }}
+          exit={{ opacity: 0, y: 0, x: 0 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           id="light-prompt-bar"
           ref={promptBarRef}
