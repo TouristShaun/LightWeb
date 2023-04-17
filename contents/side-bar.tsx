@@ -41,7 +41,7 @@ const SideBar = () => {
 
   // Focus prompt bar when it is shown
   useEffect(() => {
-    if (showSideBar) {
+    if (showSideBar || isConversationOpen) {
       promptBarInputRef.current?.focus()
     }
   }, [showSideBar])
