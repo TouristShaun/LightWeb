@@ -117,9 +117,9 @@ const PromptBar = () => {
       if (!sideBarVisibility) {
         setSideBarVisibility(true)
         setShowPromptBar(false)
+        setPromptText("")
       }
     }
-    setPromptText("")
   }
 
   return showPromptBar ? (
