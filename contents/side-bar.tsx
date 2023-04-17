@@ -10,6 +10,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import "./style.css"
 
 import Logo from "~components/Logo"
+import PromptInput from "~components/PromptInput"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"]
@@ -131,16 +132,12 @@ const SideBar = () => {
               </motion.section>
             )}
           </AnimatePresence>
-          <form onSubmit={onSubmit}>
-            <input
-              ref={promptBarInputRef}
-              type="text"
-              value={promptText}
-              placeholder="How may I help you?"
-              className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30 border-t-[1.5px] border-white/[0.13]"
-              onChange={(e) => setPromptText(e.target.value)}
-            />
-          </form>
+          <PromptInput
+            onSubmit={onSubmit}
+            ref={promptBarInputRef}
+            value={promptText}
+            onChange={(e) => setPromptText(e.target.value)}
+          />
         </motion.section>
       ) : null}
     </AnimatePresence>

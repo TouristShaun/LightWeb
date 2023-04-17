@@ -9,6 +9,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 import "./style.css"
 
 import Logo from "~components/Logo"
+import PromptInput from "~components/PromptInput"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"]
@@ -150,16 +151,12 @@ const PromptBar = () => {
           id="light-prompt-bar"
           ref={promptBarRef}
           className="w-[500px] h-fit fixed left-0 right-0 bg-black/70 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg m-auto border-[1.5px] border-white/[0.13]">
-          <form onSubmit={onSubmit}>
-            <input
-              ref={promptBarInputRef}
-              type="text"
-              value={promptText}
-              placeholder="How may I help you?"
-              className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
-              onChange={(e) => setPromptText(e.target.value)}
-            />
-          </form>
+          <PromptInput
+            onSubmit={onSubmit}
+            ref={promptBarInputRef}
+            value={promptText}
+            onChange={(e) => setPromptText(e.target.value)}
+          />
           <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13] bg-white/5 rounded-b-lg">
             <div className="h-fit w-fit opacity-30">
               <Logo variant="dark" width={30} />
