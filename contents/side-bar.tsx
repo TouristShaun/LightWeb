@@ -1,6 +1,6 @@
 import cssText from "data-text:~/contents/style.css"
 import { AnimatePresence, motion } from "framer-motion"
-import { ChevronDown } from "lucide-react"
+import { ChevronDown, ChevronUp, Trash, X } from "lucide-react"
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef, useState } from "react"
 import { useDebounce } from "tiny-use-debounce"
@@ -27,39 +27,23 @@ const SideBar = () => {
     (v) => (v === undefined ? false : v)
   )
 
-  const [localPromptText, setLocalPromptText] = useStorage(
-    "light-prompt-bar-text",
-    (v) => (v === undefined ? "" : v)
+  const [arrStr, setArrStr] = useStorage("light-arr-str", (v) =>
+    v === undefined ? [] : v
   )
 
   const [promptText, setPromptText] = useState<string>("")
-  const [showSideBar, setShowSideBar] = useState(false)
+  const [showSideBar, setShowSideBar] = useState<boolean>(false)
+  const [isConversationOpen, setIsConversationOpen] = useState<boolean>(true)
 
   const sideBarRef = useRef<HTMLDivElement>(null)
+  const promptBarInputRef = useRef<HTMLInputElement>(null)
 
-  // Close side bar when clicked outside
-  /*   useEffect(() => {
-    const onHandleClickOutside = (event: MouseEvent) => {
-      if (
-        sideBarRef.current &&
-        !sideBarRef.current.contains(event.target as Node)
-      ) {
-        setShowSideBar((prev) => !prev)
-      }
-    }
-
-    document.addEventListener("mousedown", onHandleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", onHandleClickOutside)
-    }
-  }, [sideBarRef]) */
-
-  // Load local prompt text to state
+  // Focus prompt bar when it is shown
   useEffect(() => {
-    if (localPromptText) {
-      setPromptText(localPromptText)
+    if (showSideBar) {
+      promptBarInputRef.current?.focus()
     }
-  }, [localPromptText])
+  }, [showSideBar])
 
   // Save prompt bar visibility state to local
   useEffect(() => {
@@ -68,8 +52,20 @@ const SideBar = () => {
 
   // Load local prompt bar visibility to state
   useEffect(() => {
+    if (sideBarVisibility) {
+      setIsConversationOpen(sideBarVisibility)
+    }
     setShowSideBar(sideBarVisibility)
   }, [sideBarVisibility])
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (promptText) {
+      setArrStr([...arrStr, promptText])
+      setPromptText("")
+      setIsConversationOpen(true)
+    }
+  }
 
   return (
     <AnimatePresence>
@@ -80,18 +76,71 @@ const SideBar = () => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: 100 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="w-[300px] min-h-[500px] text-white fixed right-[10px] top-[10px] bg-black/80 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
+          className="w-[300px] max-h-[500px] text-white fixed right-[10px] top-[10px] bg-black/80 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
           <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13] bg-white/5 rounded-t-lg">
             <div className="h-fit w-fit opacity-30">
               <Logo variant="dark" width={50} />
             </div>
-            <button onClick={() => setShowSideBar((prev) => !prev)}>
-              <ChevronDown size={16} />
-            </button>
+            <div className="flex items-center gap-[10px]">
+              <button onClick={() => setIsConversationOpen((prev) => !prev)}>
+                {isConversationOpen ? (
+                  <ChevronUp size={16} />
+                ) : (
+                  <ChevronDown size={16} />
+                )}
+              </button>
+              <button onClick={() => setShowSideBar(false)}>
+                <X size={16} />
+              </button>
+            </div>
           </section>
-          <section className="flex flex-col gap-[10px] p-[15px] bg-transparent h-full">
-            <p>{promptText}</p>
-          </section>
+          <AnimatePresence>
+            {isConversationOpen && (
+              <motion.section
+                initial={{
+                  height: 0,
+                  opacity: 0,
+                  overflowY: "hidden"
+                }}
+                animate={{
+                  height: "auto",
+                  opacity: 1,
+                  overflowY: "auto",
+                  transition: {
+                    overflowY: { delay: 0.3 }
+                  }
+                }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                  overflowY: "hidden"
+                }}
+                className="flex flex-col bg-black/20">
+                <div className="flex flex-col gap-[10px] p-[15px] mb-[15px] h-[375px]">
+                  {arrStr.map((item, id) => (
+                    <motion.p
+                      initial={
+                        isConversationOpen ? { opacity: 0, y: 30, x: 0 } : false
+                      }
+                      animate={{ opacity: 1, y: 0, x: 0 }}
+                      key={id}>
+                      {item}
+                    </motion.p>
+                  ))}
+                </div>
+              </motion.section>
+            )}
+          </AnimatePresence>
+          <form onSubmit={onSubmit}>
+            <input
+              ref={promptBarInputRef}
+              type="text"
+              value={promptText}
+              placeholder="How may I help you?"
+              className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30 border-t-[1.5px] border-white/[0.13]"
+              onChange={(e) => setPromptText(e.target.value)}
+            />
+          </form>
         </motion.section>
       ) : null}
     </AnimatePresence>

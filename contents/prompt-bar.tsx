@@ -36,21 +36,26 @@ const PromptBar = () => {
     (v) => (v === undefined ? false : v)
   )
 
+  const [arrStr, setArrStr] = useStorage("light-arr-str", (v) =>
+    v === undefined ? [] : v
+  )
+
   const [promptText, setPromptText] = useState<string>("")
   const [showPromptBar, setShowPromptBar] = useState(false)
 
   const promptBarInputRef = useRef<HTMLInputElement>(null)
   const promptBarRef = useRef<HTMLDivElement>(null)
 
-  // Trigger prompt bar with keyboard shortcut (ctrl + cmd + k)
   useEffect(() => {
     const onHandleKeyDown = (e: KeyboardEvent) => {
+      // Open prompt bar with keyboard shortcut (ctrl + cmd + k)
       if (e.ctrlKey && e.key === "l") {
         setShowPromptBar(true)
         if (sideBarVisibility) {
           setSideBarVisibility(false)
         }
       }
+      // Close prompt bar with escape key
       if (e.key === "Escape") {
         setShowPromptBar(false)
       }
@@ -110,6 +115,7 @@ const PromptBar = () => {
     setShowPromptBar(promptBarVisibility)
   }, [promptBarVisibility])
 
+  // Debounce saving prompt text to local
   const onChangePromptBar = useDebounce((value: string) => {
     setLocalPromptText(value)
   }, 1000)
@@ -117,11 +123,18 @@ const PromptBar = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (promptText) {
-      setLocalPromptText(promptText)
-      if (!sideBarVisibility) {
-        setSideBarVisibility(true)
-        setShowPromptBar(false)
+      // Clear local storage
+      if (promptText.includes("clear")) {
+        setArrStr([])
         setPromptText("")
+        return
+      } else {
+        setArrStr([...arrStr, promptText])
+        if (!sideBarVisibility) {
+          setSideBarVisibility(true)
+          setShowPromptBar(false)
+          setPromptText("")
+        }
       }
     }
   }
@@ -136,7 +149,7 @@ const PromptBar = () => {
           transition={{ duration: 0.2, ease: "easeOut" }}
           id="light-prompt-bar"
           ref={promptBarRef}
-          className="w-[500px] h-fit fixed left-0 right-0 bg-black/70 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
+          className="w-[500px] h-fit fixed left-0 right-0 bg-black/70 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg m-auto border-[1.5px] border-white/[0.13]">
           <form onSubmit={onSubmit}>
             <input
               ref={promptBarInputRef}
