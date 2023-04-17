@@ -1,6 +1,10 @@
 // /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./contents/*.{ts,tsx}"], // your content-script files
+  content: [
+    "./contents/*.{ts,tsx}",
+    "./popup/*.{ts,tsx}",
+    "./components/*.{ts,tsx}"
+  ], // your content-script files
   theme: {
     extend: {
       colors: {
