@@ -4,6 +4,9 @@ dependencies:
   '@plasmohq/storage':
     specifier: ^1.5.0
     version: 1.5.0(react@18.2.0)
+  framer-motion:
+    specifier: ^10.12.2
+    version: 10.12.2(react-dom@18.2.0)(react@18.2.0)
   plasmo:
     specifier: 0.68.0
     version: 0.68.0(postcss@8.4.21)(react-dom@18.2.0)(react@18.2.0)
@@ -238,6 +241,19 @@ packages:
       '@babel/helper-string-parser': 7.19.4
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
+
+  /@emotion/is-prop-valid@0.8.8:
+    resolution: {integrity: sha512-u5WtneEAr5IDG2Wv65yhunPSMLIpuKsbuOktRojfrEiEvRyC85LgPMZI63cr7NUqT8ZIGdSVg8ZKGxIug4lXcA==}
+    requiresBuild: true
+    dependencies:
+      '@emotion/memoize': 0.7.4
+    dev: false
+    optional: true
+
+  /@emotion/memoize@0.7.4:
+    resolution: {integrity: sha512-Ja/Vfqe3HpuzRsG1oBtWTHk2PGZ7GR+2Vz5iYGelAw8dx32K0y7PjVuxK6z1nMpZOqAFsRUPCkK1YjJ56qJlgw==}
+    dev: false
+    optional: true
 
   /@esbuild/android-arm64@0.17.15:
     resolution: {integrity: sha512-0kOB6Y7Br3KDVgHeg8PRcvfLkq+AccreK///B4Z6fNZGr/tNHX0z2VywCc7PTeWp+bPvjA5WMvNXltHw5QjAIA==}
@@ -3217,6 +3233,24 @@ packages:
   /fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
     dev: true
+
+  /framer-motion@10.12.2(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-DD3Ieqy4pjmL0qBtfNMqnU/IONchUqnhHtgFtu0Nq5jw7bhkksD/Cs4cNhLYd1vs7iB8Q+WInxuBeMmzIoA5Xg==}
+    peerDependencies:
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      tslib: 2.5.0
+    optionalDependencies:
+      '@emotion/is-prop-valid': 0.8.8
+    dev: false
 
   /fs-constants@1.0.0:
     resolution: {integrity: sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==}

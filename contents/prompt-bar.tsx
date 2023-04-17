@@ -1,4 +1,5 @@
 import cssText from "data-text:~/contents/style.css"
+import { AnimatePresence, motion } from "framer-motion"
 import type { PlasmoCSConfig } from "plasmo"
 import { useEffect, useRef, useState } from "react"
 import { useDebounce } from "tiny-use-debounce"
@@ -122,28 +123,36 @@ const PromptBar = () => {
     }
   }
 
-  return showPromptBar ? (
-    <section
-      id="light-prompt-bar"
-      ref={promptBarRef}
-      className="w-[500px] h-fit fixed left-0 right-0 bg-black/70 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
-      <form onSubmit={onSubmit}>
-        <input
-          ref={promptBarInputRef}
-          type="text"
-          value={promptText}
-          placeholder="How may I help you?"
-          className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
-          onChange={(e) => setPromptText(e.target.value)}
-        />
-      </form>
-      <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13] bg-white/5 rounded-b-lg">
-        <div className="h-fit w-fit opacity-30">
-          <Logo variant="dark" width={30} />
-        </div>
-      </section>
-    </section>
-  ) : null
+  return (
+    <AnimatePresence>
+      {showPromptBar ? (
+        <motion.section
+          initial={{ opacity: 0, y: 100, x: 0 }}
+          animate={{ opacity: 1, y: 0, x: 0 }}
+          exit={{ opacity: 0, y: 100, x: 0 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          id="light-prompt-bar"
+          ref={promptBarRef}
+          className="w-[500px] h-fit fixed left-0 right-0 bg-black/70 backdrop-blur-md drop-shadow-md shadow-xl rounded-lg border-white m-auto border-[1.5px] border-white/[0.13]">
+          <form onSubmit={onSubmit}>
+            <input
+              ref={promptBarInputRef}
+              type="text"
+              value={promptText}
+              placeholder="How may I help you?"
+              className="p-[15px] w-full bg-transparent text-white outline-none placeholder:text-white/30"
+              onChange={(e) => setPromptText(e.target.value)}
+            />
+          </form>
+          <section className="flex items-center justify-between w-full p-[15px] border-t-[1.5px] border-white/[0.13] bg-white/5 rounded-b-lg">
+            <div className="h-fit w-fit opacity-30">
+              <Logo variant="dark" width={30} />
+            </div>
+          </section>
+        </motion.section>
+      ) : null}
+    </AnimatePresence>
+  )
 }
 
 export default PromptBar
