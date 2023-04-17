@@ -44,7 +44,7 @@ const PromptBar = () => {
   // Trigger prompt bar with keyboard shortcut (ctrl + cmd + k)
   useEffect(() => {
     const onHandleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "l" && e.metaKey && e.ctrlKey) {
+      if (e.ctrlKey && e.key === "l") {
         setShowPromptBar((prev) => !prev)
         if (sideBarVisibility) {
           setSideBarVisibility(false)
