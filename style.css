@@ -4,6 +4,28 @@
 @tailwind components;
 @tailwind utilities;
 
+/** LOADING DOTS **/
+:where(.loading-dots) {
+  @apply inline-flex items-center leading-7 text-center;
+}
+
+:where(.loading-dots > span) {
+  @apply h-[5px] w-[5px] rounded-full;
+  animation-name: blink;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  margin: 0 2px;
+}
+
+:where(.loading-dots > span:nth-of-type(2)) {
+  animation-delay: 0.2s;
+}
+
+:where(.loading-dots > span:nth-of-type(3)) {
+  animation-delay: 0.4s;
+}
+
 #plasmo-shadow-container {
   z-index: 99999;
 }

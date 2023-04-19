@@ -1,4 +1,4 @@
-import cssText from "data-text:~/contents/style.css"
+import cssText from "data-text:~/style.css"
 import { AnimatePresence, motion } from "framer-motion"
 import { ChevronDown, ChevronUp, Trash, X } from "lucide-react"
 import type { PlasmoCSConfig } from "plasmo"
@@ -6,8 +6,6 @@ import { useEffect, useRef, useState } from "react"
 import { useDebounce } from "tiny-use-debounce"
 
 import { useStorage } from "@plasmohq/storage/hook"
-
-import "./style.css"
 
 import Logo from "~components/Logo"
 import PromptInput from "~components/PromptInput"
