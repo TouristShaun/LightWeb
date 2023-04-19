@@ -4,13 +4,20 @@ import "../style.css"
 
 import { useStorage } from "@plasmohq/storage/hook"
 
-import type { AppState } from "~type"
+import type { AppState, UserData } from "~type"
 
 function Popup() {
   const [appState, setAppState] = useStorage<AppState>(
     "light-app-state",
     (v) => v ?? "signed-out"
   )
+
+  const [userData, setUserData] = useStorage<UserData>("light-user")
+
+  const onSignOut = () => {
+    setUserData({})
+    setAppState("signed-out")
+  }
 
   return (
     <div className="flex flex-col px-[15px] py-[20px] gap-[20px] h-fit w-[400px] bg-black text-white border-[1px] border-white/10">
@@ -34,16 +41,25 @@ function Popup() {
           </div>
         )}
       </div>
-      <button
-        type="button"
-        onClick={() =>
-          chrome.tabs.create({
-            url: `${window.location.origin}/options.html`
-          })
-        }
-        className="w-full px-2.5 py-2 rounded-lg bg-white transition hover:bg-white/90 text-black font-medium">
-        {appState === "signed-out" ? "Sign In" : "Settings"}
-      </button>
+      {appState === "signed-out" ? (
+        <button
+          type="button"
+          onClick={() =>
+            chrome.tabs.create({
+              url: `${window.location.origin}/options.html`
+            })
+          }
+          className="w-full px-2.5 py-2 rounded-lg bg-white transition hover:bg-white/90 text-black font-medium">
+          Sign In
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={onSignOut}
+          className="w-full p-2.5 rounded-lg bg-red-600 transition hover:bg-red-600/80 text-white font-medium">
+          Sign out
+        </button>
+      )}
     </div>
   )
 }
