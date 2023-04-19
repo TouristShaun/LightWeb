@@ -5,6 +5,7 @@ interface LogoProps {
   variant: "dark" | "light"
   width?: number
   height?: number
+  className?: string
 }
 
 const Logo = (props: LogoProps) => {
@@ -15,6 +16,7 @@ const Logo = (props: LogoProps) => {
       alt="Light AI"
       width={width}
       height={height}
+      className={props.className}
     />
   )
 }
