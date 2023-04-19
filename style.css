@@ -37,6 +37,15 @@
   transition-timing-function: ease-in-out;
 }
 
+#plasmo-overlay-0 {
+  @apply inset-0;
+  margin-left: calc(50vh - 500px);
+}
+
+#light-prompt-bar {
+  margin-top: 30vh;
+}
+
 @keyframes slide-up {
   from {
     opacity: 0;
@@ -48,11 +57,14 @@
   }
 }
 
-#plasmo-overlay-0 {
-  @apply inset-0;
-  margin-left: calc(50vh - 500px);
-}
-
-#light-prompt-bar {
-  margin-top: 30vh;
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
 }
