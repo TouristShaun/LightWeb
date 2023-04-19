@@ -8,7 +8,10 @@ import SignIn from "~components/SignIn"
 import type { AppState, UserData } from "~type"
 
 const Options = () => {
-  const [appState, setAppState] = useStorage<AppState>("light-app-state")
+  const [appState, setAppState] = useStorage<AppState>(
+    "light-app-state",
+    (v) => v ?? "signed-out"
+  )
 
   const [userData, setUserData] = useStorage<UserData>("light-user")
 

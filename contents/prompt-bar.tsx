@@ -36,7 +36,10 @@ const PromptBar = () => {
     (v) => (v === undefined ? false : v)
   )
 
-  const [appState, setAppState] = useStorage<AppState>("light-app-state")
+  const [appState, setAppState] = useStorage<AppState>(
+    "light-app-state",
+    (v) => v ?? "signed-out"
+  )
 
   const [arrStr, setArrStr] = useStorage("light-arr-str", (v) =>
     v === undefined ? [] : v

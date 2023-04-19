@@ -29,7 +29,10 @@ const SignIn = () => {
     v === undefined ? {} : v
   )
 
-  const [appState, setAppState] = useStorage<AppState>("light-app-state")
+  const [appState, setAppState] = useStorage<AppState>(
+    "light-app-state",
+    (v) => v ?? "signed-out"
+  )
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [isLoading, setLoading] = useState<boolean>(false)

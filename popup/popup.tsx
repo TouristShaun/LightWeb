@@ -7,7 +7,10 @@ import { useStorage } from "@plasmohq/storage/hook"
 import type { AppState } from "~type"
 
 function Popup() {
-  const [appState] = useStorage<AppState>("light-app-state")
+  const [appState, setAppState] = useStorage<AppState>(
+    "light-app-state",
+    (v) => v ?? "signed-out"
+  )
 
   return (
     <div className="flex flex-col px-[15px] py-[20px] gap-[20px] h-fit w-[400px] bg-black text-white border-[1px] border-white/10">
