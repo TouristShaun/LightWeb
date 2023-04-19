@@ -1,0 +1,70 @@
+@config "./tailwind.config.js";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/** LOADING DOTS **/
+:where(.loading-dots) {
+  @apply inline-flex items-center leading-7 text-center;
+}
+
+:where(.loading-dots > span) {
+  @apply h-[5px] w-[5px] rounded-full;
+  animation-name: blink;
+  animation-duration: 1.4s;
+  animation-iteration-count: infinite;
+  animation-fill-mode: both;
+  margin: 0 2px;
+}
+
+:where(.loading-dots > span:nth-of-type(2)) {
+  animation-delay: 0.2s;
+}
+
+:where(.loading-dots > span:nth-of-type(3)) {
+  animation-delay: 0.4s;
+}
+
+#plasmo-shadow-container {
+  z-index: 99999;
+}
+
+.animate-slide-up {
+  animation-name: slide-up;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  transition-timing-function: ease-in-out;
+}
+
+#plasmo-overlay-0 {
+  @apply inset-0;
+  margin-left: calc(50vh - 500px);
+}
+
+#light-prompt-bar {
+  margin-top: 30vh;
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.2;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}

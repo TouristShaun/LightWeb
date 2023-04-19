@@ -1,0 +1,45 @@
+{
+  "name": "light",
+  "displayName": "Light",
+  "version": "0.0.1",
+  "description": "Light browser extension.",
+  "author": "Light <lightapi.com>",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.1.0",
+    "@plasmohq/storage": "^1.5.0",
+    "@supabase/supabase-js": "^2.20.0",
+    "framer-motion": "^10.12.2",
+    "lucide-react": "^0.161.0",
+    "plasmo": "0.68.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
+    "tailwindcss": "3.3.1",
+    "tiny-use-debounce": "^1.0.4",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@plasmohq/prettier-plugin-sort-imports": "3.6.4",
+    "@types/chrome": "0.0.228",
+    "@types/node": "18.15.11",
+    "@types/react": "18.0.33",
+    "@types/react-dom": "18.0.11",
+    "autoprefixer": "10.4.14",
+    "postcss": "8.4.21",
+    "prettier": "2.8.7",
+    "typescript": "5.0.4"
+  },
+  "manifest": {
+    "host_permissions": [
+      "https://*/*"
+    ],
+    "permissions": [
+      "tabs"
+    ]
+  }
+}
