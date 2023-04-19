@@ -8,6 +8,7 @@ import { useStorage } from "@plasmohq/storage/hook"
 
 import Logo from "~components/Logo"
 import PromptInput from "~components/PromptInput"
+import type { AppState } from "~type"
 
 export const config: PlasmoCSConfig = {
   matches: ["<all_urls>"]
@@ -35,6 +36,8 @@ const PromptBar = () => {
     (v) => (v === undefined ? false : v)
   )
 
+  const [appState, setAppState] = useStorage<AppState>("light-app-state")
+
   const [arrStr, setArrStr] = useStorage("light-arr-str", (v) =>
     v === undefined ? [] : v
   )
@@ -47,7 +50,7 @@ const PromptBar = () => {
 
   useEffect(() => {
     const onHandleKeyDown = (e: KeyboardEvent) => {
-      // Open prompt bar with keyboard shortcut (ctrl + cmd + k)
+      // Open prompt bar with keyboard shortcut (ctrl + l)
       if (e.ctrlKey && e.key === "l") {
         setShowPromptBar(true)
         if (sideBarVisibility) {
@@ -60,12 +63,16 @@ const PromptBar = () => {
       }
     }
 
-    document.addEventListener("keydown", onHandleKeyDown)
+    if (appState === "signed-in") {
+      document.addEventListener("keydown", onHandleKeyDown)
+    }
 
     return () => {
-      document.removeEventListener("keydown", onHandleKeyDown)
+      if (appState === "signed-in") {
+        document.removeEventListener("keydown", onHandleKeyDown)
+      }
     }
-  }, [showPromptBar])
+  }, [showPromptBar, appState])
 
   // Close prompt bar when clicked outside
   useEffect(() => {
@@ -79,11 +86,15 @@ const PromptBar = () => {
       }
     }
 
-    document.addEventListener("mousedown", onHandleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", onHandleClickOutside)
+    if (appState === "signed-in") {
+      document.addEventListener("mousedown", onHandleClickOutside)
     }
-  }, [promptBarRef])
+    return () => {
+      if (appState === "signed-in") {
+        document.removeEventListener("mousedown", onHandleClickOutside)
+      }
+    }
+  }, [promptBarRef, appState])
 
   // Focus prompt bar when it is shown
   useEffect(() => {

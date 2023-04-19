@@ -36,6 +36,7 @@ const SideBar = () => {
 
   const sideBarRef = useRef<HTMLDivElement>(null)
   const promptBarInputRef = useRef<HTMLInputElement>(null)
+  const conversationRef = useRef<HTMLDivElement>(null)
 
   // Focus prompt bar when it is shown
   useEffect(() => {
@@ -56,6 +57,12 @@ const SideBar = () => {
     }
     setShowSideBar(sideBarVisibility)
   }, [sideBarVisibility])
+
+  useEffect(() => {
+    if (conversationRef.current) {
+      conversationRef.current.scrollTop = conversationRef.current.scrollHeight
+    }
+  }, [arrStr])
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -115,7 +122,9 @@ const SideBar = () => {
                   overflowY: "hidden"
                 }}
                 className="flex flex-col bg-black/20">
-                <div className="flex flex-col gap-[10px] p-[15px] mb-[15px] h-[375px]">
+                <div
+                  className="flex flex-col gap-[10px] p-[15px] mb-[15px] h-[375px]"
+                  ref={conversationRef}>
                   {arrStr.map((item, id) => (
                     <motion.p
                       initial={
