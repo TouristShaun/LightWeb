@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Light"
+  given-names: "AI"
+title: "LightWeb"
+date-released: 06-14-2023
+url: "https://github.com/light-hq/lightweb
