@@ -4,6 +4,10 @@ Light Web combines keyboard and mouse clicks into "actions". Actions are dynamic
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+![Twitter URL](https://img.shields.io/twitter/url?label=Light%20AI&style=social&url=https%3A%2F%2Ftwitter.com%2FLightAI)
+![GitHub Repo stars](https://img.shields.io/github/stars/light-hq/LightWeb?style=social)
+
+
 # 🎨 UI 
 
 Light Web is currently a Chrome Extension and currently that's the easiest way to build and deploy this framework to your browser.
