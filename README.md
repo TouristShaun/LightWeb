@@ -10,7 +10,7 @@ Light Web is currently a Chrome Extension and currently that's the easiest way t
 ## 📦 Install
 
 1. Clone this repo
-2. Npm I 
+2. Npm install
 2. Open Chrome and go to `chrome://extensions`
 3. Click `Load unpacked` and select the `chrome-extension` folder from this repo
 
