@@ -2,8 +2,7 @@
 
 Light Web combines keyboard and mouse clicks into "actions". Actions are dynamic ways to interact with websites without searching
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)![Twitter Follow](https://img.shields.io/twitter/follow/LightAI?style=social)
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)![Twitter URL](https://img.shields.io/twitter/url?label=%40LightAI&style=social&url=https%3A%2F%2Ftwitter.com%2FLightAI)
 
 # 🎨 UI 
 
